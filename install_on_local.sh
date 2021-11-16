@@ -9,7 +9,10 @@
 ##
 ## version number of cudnn has been modified.. 
 ## check here: https://developer.nvidia.com/rdp/cudnn-archive
-##
+## 
+
+wget https://git.scicore.unibas.ch/schwede/openstructure/-/raw/7102c63615b64735c4941278d92b554ec94415f8/modules/mol/alg/src/stereo_chemical_props.txt 
+mv stereo_chemical_props.txt ./alphafold/common
 
 conda install -y -c conda-forge cudnn=8.1.0
 conda install -y -c bioconda hmmer hhsuite==3.3.0 kalign2
@@ -27,9 +30,18 @@ pip3 install --upgrade pip \
     && pip3 install jaxlib==0.1.70+cuda111 -f \
     https://storage.googleapis.com/jax-releases/jax_releases.html
 
+# or cuda10.2
+	 #&& pip3 install --upgrade "jax[cuda102]" -f \
+    #https://storage.googleapis.com/jax-releases/jax_releases.html \
+    #&& pip3 install jaxlib==0.1.70+cuda102 -f \
+    #https://storage.googleapis.com/jax-releases/jax_releases.html
+
 work_path=`pwd`
 # update openmm 
 a=$(which python)
 cd $(dirname $(dirname $a))/lib/python3.8/site-packages
 patch -p0 < $work_path/docker/openmm.patch
 
+#
+# see env_cuda10.2.txt for detailed settings 
+#
